@@ -1,7 +1,7 @@
 # BERT
 BERT study process
 
-##_10/29_
+## _10/29_
 
 
 开始写*transformer*的demo，基于[The Annoted Translater](https://nlp.seas.harvard.edu/2018/04/03/attention.html)
@@ -22,7 +22,7 @@ BERT study process
 	class SubLayerConnection
 	class Generator
 	
-##Encoder-Decoder类
+## Encoder-Decoder类
 
 是编码器-解码器标准类，成员包含一个Encoder类和一个Decoder类,和一个Generator类
 
@@ -30,17 +30,17 @@ BERT study process
 
 ![encode-decoder](/img/Encoder-Decoder.png)
 
-##Encoder/Decoder类
+## Encoder/Decoder类
 
 是编码器/解码器类，成员包含了N层（通常N=6）En/DecoderLayer类
 
 ![Encoder](/img/Encoder.png)
 
-##EncoderLayer/DecoderLayer
+## EncoderLayer/DecoderLayer
 
 是编码器/解码器每层的具体实现（Self Attention + Feed Forward）
 
-![EncoderLayer](/img/EncoderLaYer.png)
+![EncoderLayer](/img/EncoderLayer.png)
 
 包括2个Residual connect层：
 
@@ -48,7 +48,7 @@ BERT study process
 - feed_forward层
 
 
-##SubLayerConnection类
+## SubLayerConnection类
 
 实现了Residual connect
 
@@ -69,12 +69,12 @@ x和sublayer作为参数传入forward方法返回
 
 
 
-##多个layer的克隆操作
+## 多个layer的克隆操作
     
 		def clones(nn.module, N):
 			return nn.ModuleList([copy.deepcopy(module) for _ in range(N)])
 
-##LayerNorm 
+## LayerNorm 
 
 用于layer normalization[-reference](https://arxiv.org/abs/1607.06450)(未读，之后补)
 
@@ -90,7 +90,7 @@ x和sublayer作为参数传入forward方法返回
         std = x.std(-1, keepdim=True)
         return self.a_2 * (x-mean) / (std + self.eps) + self.b_2
 
-##Generator
+## Generator
 
 Liner + softmax
 	
@@ -102,7 +102,7 @@ Liner + softmax
 	    def forward(self,x):
 	        return F.log_softmax(self.proj(x), dim=-1)
 
-##subsequent_mask
+## subsequent_mask
 在Decoder中为了防止在attention时query访问后面的字段，需要给后面添加mask
 
 用到了`np.triu`方法，生成上三角矩阵
@@ -115,7 +115,7 @@ Liner + softmax
 ![triu](/img/triu.png)
 
 
-###明天，继续写！
+### 明天，继续写！
 
 
 
